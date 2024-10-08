@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Riddle Challenge</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0e6d2;
+            background-image: url('https://api.placeholder.com/800x600/f0e6d2/8d6e63?text=Fantasy+Background'); <!-- replace background image, currently using placeholder -->
+            background-size: cover;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #8d6e63;
+        }
+        .riddle {
+            margin-bottom: 1em;
+        }
+        input {
+            width: 100%;
+            padding: 0.5em;
+            margin-bottom: 1em;
+            border: 1px solid #8d6e63;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #8d6e63;
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #6d4c41;
+        }
+        #result {
+            margin-top: 1em;
+            font-weight: bold;
+        }
+        #riddleText {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fantasy Riddle Challenge</h1>
+        <div id="riddleContainer">
+            <p id="riddleText" class="riddle"></p>
+            <input type="text" id="answer" placeholder="Your answer">
+            <button onclick="checkAnswer()">Submit Answer</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const riddles = [
+            {
+                question: "A cold-blooded tale, a scaly friend in slumber deep, what is the title of your story to keep?",
+                answer: "Lizard in My Freezer"
+            },
+            {
+                question: "Roll me to determine your fate, critical hits I can create. With 20 sides, I'm a player's mate. What am I?",
+                answer: "d20"
+            },
+            {
+                question: "A potion of mint and lime, a rum elixor, a refreshing sight.\nWith Cuban origins, in my glass it shone; what drink did I, your quest companion, own?",
+                answer: "Mojito"
+            }
+        ];
+
+        let currentRiddle = 0;
+
+        function displayRiddle() {
+            document.getElementById('riddleText').textContent = riddles[currentRiddle].question;
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer').value.toLowerCase();
+            const correctAnswer = riddles[currentRiddle].answer;
+
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                currentRiddle++;
+                if (currentRiddle < riddles.length) {
+                    displayRiddle();
+                    document.getElementById('answer').value = '';
+                    document.getElementById('result').textContent = 'You did it! Here\'s your next riddle...';
+                } else {
+                    document.getElementById('riddleContainer').style.display = 'none';
+                    document.getElementById('result').innerHTML = `
+                        <h2>Congratulations!</h2>
+                        <p>You\'ve done it. You\'re the man now dog! Your "reward" awaits... </p>
+                        <p>[Insert your date invitation here]</p>                                      <!-- invite goes here -->
+                    `;
+                }
+            } else {
+                document.getElementById('result').textContent = 'Almost there. Try again!';
+            }
+        }
+
+        displayRiddle();
+    </script>
+</body>
+</html>
